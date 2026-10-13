@@ -35,6 +35,16 @@ VITE_SUPABASE_URL=
 VITE_SUPABASE_API_KEY=
 ```
 
+Before opening the `Appointments` section, apply the Supabase migration:
+
+```sh
+supabase db push
+```
+
+If the project is not connected to the Supabase CLI, run the contents of
+`supabase/migrations/20261013000000_create_appointments.sql` once in the
+Supabase SQL Editor.
+
 ## Customize The Application
 
 Follow the instructions in your browser console once you start the application.

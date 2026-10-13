@@ -1,6 +1,8 @@
 import { Admin, CustomRoutes, Resource } from "react-admin";
 import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
 import EventNoteRoundedIcon from "@mui/icons-material/EventNoteRounded";
+import MedicalInformationRoundedIcon from "@mui/icons-material/MedicalInformationRounded";
+import ChecklistRoundedIcon from "@mui/icons-material/ChecklistRounded";
 import { BrowserRouter, Route } from "react-router-dom";
 import {
   defaultI18nProvider,
@@ -14,7 +16,19 @@ import {
   PatientList,
   PatientShow,
 } from "./patients";
+import {
+  DiagnoseCreate,
+  DiagnoseEdit,
+  DiagnoseList,
+  DiagnoseShow,
+} from "./diagnosis";
 import { VisitCreate, VisitEdit, VisitList, VisitShow } from "./visits";
+import {
+  AppointmentCreate,
+  AppointmentEdit,
+  AppointmentList,
+  AppointmentShow,
+} from "./appointments";
 import { authProvider, dataProvider } from "./supabase";
 import { Layout } from "./Layout";
 import { darkTheme, lightTheme } from "./theme";
@@ -52,15 +66,25 @@ export const App = () => (
         icon={EventNoteRoundedIcon}
         options={{ label: "Visits" }}
       />
-      {/* <Resource
-        name="diagnoses"
-        list={DiagnosisList}
-        create={DiagnosisCreate}
-        edit={DiagnosisEdit}
-        show={DiagnosisShow}
+      <Resource
+        name="diagnosis"
+        list={DiagnoseList}
+        create={DiagnoseCreate}
+        edit={DiagnoseEdit}
+        show={DiagnoseShow}
+        icon={MedicalInformationRoundedIcon}
         options={{ label: "Diagnoses" }}
         // Пока не создаем страницы для диагнозов, но ресурс нужен, чтобы React Admin понимал связи между таблицами.
-      /> */}
+      />
+      <Resource
+        name="appointments"
+        list={AppointmentList}
+        create={AppointmentCreate}
+        edit={AppointmentEdit}
+        show={AppointmentShow}
+        icon={ChecklistRoundedIcon}
+        options={{ label: "Appointments" }}
+      />
       {/* Auth-страницы оставь в App: без логина Supabase RLS не даст создавать записи. */}
       <CustomRoutes noLayout>
         <Route path={SetPasswordPage.path} element={<SetPasswordPage />} />
