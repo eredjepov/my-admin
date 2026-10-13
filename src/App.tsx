@@ -1,4 +1,6 @@
 import { Admin, CustomRoutes, Resource } from "react-admin";
+import PeopleAltRoundedIcon from "@mui/icons-material/PeopleAltRounded";
+import EventNoteRoundedIcon from "@mui/icons-material/EventNoteRounded";
 import { BrowserRouter, Route } from "react-router-dom";
 import {
   defaultI18nProvider,
@@ -15,6 +17,7 @@ import {
 import { VisitCreate, VisitEdit, VisitList, VisitShow } from "./visits";
 import { authProvider, dataProvider } from "./supabase";
 import { Layout } from "./Layout";
+import { darkTheme, lightTheme } from "./theme";
 
 export const App = () => (
   <BrowserRouter>
@@ -24,6 +27,10 @@ export const App = () => (
       i18nProvider={defaultI18nProvider}
       layout={Layout}
       loginPage={LoginPage}
+      theme={lightTheme}
+      darkTheme={darkTheme}
+      defaultTheme="light"
+      title="Doc's Workboard"
     >
       {/* Начинай новый раздел с Resource: name всегда равен имени таблицы в Supabase. */}
       <Resource
@@ -32,6 +39,7 @@ export const App = () => (
         create={PatientCreate}
         edit={PatientEdit}
         show={PatientShow}
+        icon={PeopleAltRoundedIcon}
         options={{ label: "Patients" }}
       />
       {/* По этому же шаблону добавляй следующие таблицы: list/create/edit/show лежат в отдельном файле. */}
@@ -41,6 +49,7 @@ export const App = () => (
         create={VisitCreate}
         edit={VisitEdit}
         show={VisitShow}
+        icon={EventNoteRoundedIcon}
         options={{ label: "Visits" }}
       />
       {/* <Resource
