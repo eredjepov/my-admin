@@ -34,16 +34,25 @@ const normalizeNullable = <T,>(value: T | "" | undefined): T | null => {
 };
 
 const patientFilters = [
-  <TextInput key="name" label="Name" source="name@ilike" alwaysOn />,
-  <TextInput key="surname" label="Surname" source="surname@ilike" />,
+  <TextInput
+    key="name"
+    label="resources.patients_info.fields.name"
+    source="name@ilike"
+    alwaysOn
+  />,
+  <TextInput
+    key="surname"
+    label="resources.patients_info.fields.surname"
+    source="surname@ilike"
+  />,
 ];
 
 const patientInputs = (
   <>
     {/* В форме оставляй только поля, которые человек вводит руками; id и даты лучше не трогать. */}
-    <TextInput source="name" label="Name" validate={[required()]} fullWidth />
-    <TextInput source="surname" label="Surname" fullWidth />
-    <NumberInput source="phone" label="Phone" fullWidth />
+    <TextInput source="name" validate={[required()]} fullWidth />
+    <TextInput source="surname" fullWidth />
+    <NumberInput source="phone" fullWidth />
   </>
 );
 
@@ -69,12 +78,12 @@ export const PatientList = () => (
     sort={{ field: "created_at", order: "DESC" }}
   >
     <Datagrid rowClick="show">
-      <NumberField source="id" label="ID" />
-      <TextField source="name" label="Name" />
-      <TextField source="surname" label="Surname" />
-      <NumberField source="phone" label="Phone" />
-      <DateField source="created_at" label="Created" showTime />
-      <DateField source="updated_at" label="Updated" showTime />
+      <NumberField source="id" />
+      <TextField source="name" />
+      <TextField source="surname" />
+      <NumberField source="phone" />
+      <DateField source="created_at" showTime />
+      <DateField source="updated_at" showTime />
       <ShowButton />
       <EditButton />
       <DeleteButton mutationMode="pessimistic" />
@@ -98,12 +107,12 @@ export const PatientShow = () => (
   <Show>
     <SimpleShowLayout>
       {/* Show почти повторяет List, только без input-компонентов и кнопок изменения. */}
-      <NumberField source="id" label="ID" />
-      <TextField source="name" label="Name" />
-      <TextField source="surname" label="Surname" />
-      <NumberField source="phone" label="Phone" />
-      <DateField source="created_at" label="Created" showTime />
-      <DateField source="updated_at" label="Updated" showTime />
+      <NumberField source="id" />
+      <TextField source="name" />
+      <TextField source="surname" />
+      <NumberField source="phone" />
+      <DateField source="created_at" showTime />
+      <DateField source="updated_at" showTime />
     </SimpleShowLayout>
   </Show>
 );

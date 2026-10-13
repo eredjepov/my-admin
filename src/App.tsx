@@ -4,12 +4,7 @@ import EventNoteRoundedIcon from "@mui/icons-material/EventNoteRounded";
 import MedicalInformationRoundedIcon from "@mui/icons-material/MedicalInformationRounded";
 import ChecklistRoundedIcon from "@mui/icons-material/ChecklistRounded";
 import { BrowserRouter, Route } from "react-router-dom";
-import {
-  defaultI18nProvider,
-  ForgotPasswordPage,
-  LoginPage,
-  SetPasswordPage,
-} from "ra-supabase";
+import { ForgotPasswordPage, SetPasswordPage } from "ra-supabase";
 import {
   PatientCreate,
   PatientEdit,
@@ -32,15 +27,17 @@ import {
 import { authProvider, dataProvider } from "./supabase";
 import { Layout } from "./Layout";
 import { darkTheme, lightTheme } from "./theme";
+import { i18nProvider } from "./i18n";
+import { AuthLanguageSwitcher, LocalizedLoginPage } from "./LoginPage";
 
 export const App = () => (
   <BrowserRouter>
     <Admin
       authProvider={authProvider}
       dataProvider={dataProvider}
-      i18nProvider={defaultI18nProvider}
+      i18nProvider={i18nProvider}
       layout={Layout}
-      loginPage={LoginPage}
+      loginPage={LocalizedLoginPage}
       theme={lightTheme}
       darkTheme={darkTheme}
       defaultTheme="light"
@@ -54,7 +51,6 @@ export const App = () => (
         edit={PatientEdit}
         show={PatientShow}
         icon={PeopleAltRoundedIcon}
-        options={{ label: "Patients" }}
       />
       {/* По этому же шаблону добавляй следующие таблицы: list/create/edit/show лежат в отдельном файле. */}
       <Resource
@@ -64,7 +60,6 @@ export const App = () => (
         edit={VisitEdit}
         show={VisitShow}
         icon={EventNoteRoundedIcon}
-        options={{ label: "Visits" }}
       />
       <Resource
         name="diagnosis"
@@ -73,7 +68,6 @@ export const App = () => (
         edit={DiagnoseEdit}
         show={DiagnoseShow}
         icon={MedicalInformationRoundedIcon}
-        options={{ label: "Diagnoses" }}
         // Пока не создаем страницы для диагнозов, но ресурс нужен, чтобы React Admin понимал связи между таблицами.
       />
       <Resource
@@ -83,14 +77,24 @@ export const App = () => (
         edit={AppointmentEdit}
         show={AppointmentShow}
         icon={ChecklistRoundedIcon}
-        options={{ label: "Appointments" }}
       />
       {/* Auth-страницы оставь в App: без логина Supabase RLS не даст создавать записи. */}
       <CustomRoutes noLayout>
-        <Route path={SetPasswordPage.path} element={<SetPasswordPage />} />
+        <Route
+          path={SetPasswordPage.path}
+          element={
+            <AuthLanguageSwitcher>
+              <SetPasswordPage />
+            </AuthLanguageSwitcher>
+          }
+        />
         <Route
           path={ForgotPasswordPage.path}
-          element={<ForgotPasswordPage />}
+          element={
+            <AuthLanguageSwitcher>
+              <ForgotPasswordPage />
+            </AuthLanguageSwitcher>
+          }
         />
       </CustomRoutes>
     </Admin>

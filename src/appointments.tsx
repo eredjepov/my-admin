@@ -27,29 +27,23 @@ const normalizeNullable = (value: string | null | undefined) =>
   value === "" || value === undefined ? null : value;
 
 const appointmentFilters = [
-  <TextInput key="title" source="title@ilike" label="Appointment" alwaysOn />,
+  <TextInput
+    key="title"
+    source="title@ilike"
+    label="resources.appointments.fields.title"
+    alwaysOn
+  />,
   <TextInput
     key="description"
     source="description@ilike"
-    label="Description"
+    label="resources.appointments.fields.description"
   />,
 ];
 
 const appointmentInputs = (
   <>
-    <TextInput
-      source="title"
-      label="Appointment"
-      validate={[required()]}
-      fullWidth
-    />
-    <TextInput
-      source="description"
-      label="Description"
-      multiline
-      rows={3}
-      fullWidth
-    />
+    <TextInput source="title" validate={[required()]} fullWidth />
+    <TextInput source="description" multiline rows={3} fullWidth />
   </>
 );
 
@@ -74,11 +68,11 @@ export const AppointmentList = () => (
     sort={{ field: "title", order: "ASC" }}
   >
     <Datagrid rowClick="show">
-      <NumberField source="id" label="ID" />
-      <TextField source="title" label="Appointment" />
-      <TextField source="description" label="Description" />
-      <DateField source="created_at" label="Created" showTime />
-      <DateField source="updated_at" label="Updated" showTime />
+      <NumberField source="id" />
+      <TextField source="title" />
+      <TextField source="description" />
+      <DateField source="created_at" showTime />
+      <DateField source="updated_at" showTime />
       <ShowButton />
       <EditButton />
       <DeleteButton mutationMode="pessimistic" />
@@ -101,11 +95,11 @@ export const AppointmentEdit = () => (
 export const AppointmentShow = () => (
   <Show>
     <SimpleShowLayout>
-      <NumberField source="id" label="ID" />
-      <TextField source="title" label="Appointment" />
-      <TextField source="description" label="Description" />
-      <DateField source="created_at" label="Created" showTime />
-      <DateField source="updated_at" label="Updated" showTime />
+      <NumberField source="id" />
+      <TextField source="title" />
+      <TextField source="description" />
+      <DateField source="created_at" showTime />
+      <DateField source="updated_at" showTime />
     </SimpleShowLayout>
   </Show>
 );

@@ -82,7 +82,6 @@ const AppointmentInput = () => {
   return (
     <AutocompleteInput
       source="appointment"
-      label="Appointment"
       choices={appointments}
       optionText={appointmentOptionText}
       optionValue="title"
@@ -97,7 +96,7 @@ const visitFilters = [
     key="patient_id"
     source="patient_id"
     reference="patients_info"
-    label="Patient search"
+    label="resources.visits.fields.patient_search"
     alwaysOn
   >
     <AutocompleteInput
@@ -107,22 +106,21 @@ const visitFilters = [
   </ReferenceInput>,
   <TextInput
     key="appointment"
-    label="Appointment"
+    label="resources.visits.fields.appointment"
     source="appointment@ilike"
     alwaysOn
   />,
-  <TextInput key="comments" label="Comments" source="comments@ilike" />,
+  <TextInput
+    key="comments"
+    label="resources.visits.fields.comments"
+    source="comments@ilike"
+  />,
 ];
 
 const visitInputs = (
   <>
     {/* FK можно начать с NumberInput; когда будет справочник, заменишь на ReferenceInput. */}
-    <ReferenceInput
-      source="patient_id"
-      reference="patients_info"
-      label="Patient"
-      fullWidth
-    >
+    <ReferenceInput source="patient_id" reference="patients_info" fullWidth>
       <AutocompleteInput
         optionText={patientOptionText}
         filterToQuery={patientFilterToQuery}
@@ -130,18 +128,8 @@ const visitInputs = (
       />
     </ReferenceInput>
     <AppointmentInput />
-    <TextInput
-      source="comments"
-      label="Comments"
-      multiline
-      rows={4}
-      fullWidth
-    />
-    <ReferenceInput
-      source="diagnosis_id"
-      reference="diagnosis"
-      label="Diagnosis"
-    >
+    <TextInput source="comments" multiline rows={4} fullWidth />
+    <ReferenceInput source="diagnosis_id" reference="diagnosis">
       <AutocompleteInput optionText="title" fullWidth />
     </ReferenceInput>
   </>
@@ -164,22 +152,14 @@ export const VisitList = () => (
     sort={{ field: "created_at", order: "DESC" }}
   >
     <Datagrid rowClick="show">
-      <NumberField source="id" label="ID" />
-      <DateField source="created_at" label="Created" showTime />
-      <ReferenceField
-        source="patient_id"
-        reference="patients_info"
-        label="Patient"
-      />
+      <NumberField source="id" />
+      <DateField source="created_at" showTime />
+      <ReferenceField source="patient_id" reference="patients_info" />
 
-      <TextField source="appointment" label="Appointment" />
-      <TextField source="comments" label="Comments" />
+      <TextField source="appointment" />
+      <TextField source="comments" />
       {/* <NumberField source="diagnosis_id" label="Diagnosis ID" /> */}
-      <ReferenceField
-        source="diagnosis_id"
-        reference="diagnosis"
-        label="Diagnosis"
-      />
+      <ReferenceField source="diagnosis_id" reference="diagnosis" />
       <ShowButton />
       <EditButton />
       <DeleteButton mutationMode="pessimistic" />
@@ -203,12 +183,12 @@ export const VisitShow = () => (
   <Show>
     <SimpleShowLayout>
       {/* Для show-экрана бери те же поля, что в таблице, чтобы пользователь легко сверял запись. */}
-      <NumberField source="id" label="ID" />
-      <DateField source="created_at" label="Created" showTime />
-      <NumberField source="patient_id" label="Patient ID" />
-      <TextField source="appointment" label="Appointment" />
-      <TextField source="comments" label="Comments" />
-      <NumberField source="diagnosis_id" label="Diagnosis ID" />
+      <NumberField source="id" />
+      <DateField source="created_at" showTime />
+      <NumberField source="patient_id" />
+      <TextField source="appointment" />
+      <TextField source="comments" />
+      <NumberField source="diagnosis_id" />
     </SimpleShowLayout>
   </Show>
 );
